@@ -22,6 +22,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import java.util.List;
 
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -29,6 +31,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 @RequiredArgsConstructor
 @Configuration
 public class SecurityConfig {
+
+    @Value("${frontend.url}")
+    private String frontendUrl;
 
     private final CustomUserDetailsService customUserDetailsService;
 
@@ -86,7 +91,8 @@ public class SecurityConfig {
 
         configuration.setAllowedOrigins(List.of(
                 "http://localhost:5173",
-                "http://localhost:5174"
+                "http://localhost:5174",
+                frontendUrl
         ));
 
         configuration.setAllowedMethods(List.of(
